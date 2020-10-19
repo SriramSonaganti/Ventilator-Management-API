@@ -56,6 +56,15 @@ app.post('/searchventbyname',  middleware.checkToken , (req,res) => {
     .find({'name':new RegExp(name, 'i')}).toArray().then(result=>res.json(result));
 });
 
+//SEARCH VENTILATOR BY NAME AND STATUS
+app.post('/ventbystatusandname', middleware.checkToken , (req,res) => {
+    const name=req.query.name;
+    const status= req.query.status;
+    console.log('Fetching ventilators in',name,'which are',status);
+    const ventilatordeatils=db.collection('ventilator')
+    .find({'status':status,'name':new RegExp(name, 'i')}).toArray().then(result=>res.json(result));
+});
+
 //SEARCH HOSPITAL BY NAME
 app.post('/searchhospital', middleware.checkToken , (req,res) => {
     const name=req.query.name;
